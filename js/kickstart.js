@@ -4,11 +4,15 @@
 */
 
 jQuery(document).ready(function($){
+	htmlKickStart($(document));
+});
+
+function htmlKickStart(dom) {
 
 	/*---------------------------------
 		MENU Dropdowns
 	-----------------------------------*/
-	$('ul.menu').each(function(){
+	dom.find('ul.menu').each(function(){
 		// add the menu toggle
 		$(this).prepend('<li class="menu-toggle"><a href="#"><span class="icon" data-icon="Y"></span> Menu</a></li>');
 	
@@ -17,7 +21,7 @@ jQuery(document).ready(function($){
 		.find('a:first').append('<span class="arrow">&nbsp;</span>');
 	});
 	
-	$('ul.menu li').hover(function(){
+	dom.find('ul.menu li').hover(function(){
 		$(this).find('ul:first').stop(true, true).fadeIn('fast');
 		$(this).addClass('hover');
 	},
@@ -29,7 +33,7 @@ jQuery(document).ready(function($){
 	/*---------------------------------
 		Slideshow
 	-----------------------------------*/
-	$('.slideshow').bxSlider({
+	dom.find('.slideshow').bxSlider({
 		mode: 'horizontal', // 'horizontal', 'vertical', 'fade'
 		video: true,
 		useCSS: true,
@@ -50,12 +54,12 @@ jQuery(document).ready(function($){
 	/*---------------------------------
 		HTML5 Placeholder Support
 	-----------------------------------*/
-	$('input[placeholder], textarea[placeholder]').placeholder();
+	dom.find('input[placeholder], textarea[placeholder]').placeholder();
 	
 	/*---------------------------------
 		Rich Text Editor
 	-----------------------------------*/
-	$('.rte').each(function(index){
+	dom.find('.rte').each(function(index){
 		var newID = $(this).attr('id')+index;
 		$(this).hide();
 		$(this).wrap('<div id="'+newID+'" class="rte-wrap editmode"></div>');
@@ -98,7 +102,7 @@ jQuery(document).ready(function($){
 	});
 	
 	// buttons
-	$('.rte-wrap .rte-toolbar a').live('click',function(e){
+	dom.find('.rte-wrap .rte-toolbar a').live('click',function(e){
 		e.preventDefault();
 		var rte		= $(this).parents('.rte-wrap');
 		var toolbar = rte.find('.rte-toolbar');
@@ -114,7 +118,7 @@ jQuery(document).ready(function($){
 		}
 		
 		// html toggle
-		if($(this).parent().hasClass('html-toggle')) {
+		if(dom.find(this).parent().hasClass('html-toggle')) {
 			if(rhtml.is(':hidden')) { rhtml.val(editor.html()); rte.removeClass('editmode'); }
 			else{ editor.html(rhtml.val()); rte.addClass('editmode'); }
 			editor.toggle();
@@ -126,7 +130,7 @@ jQuery(document).ready(function($){
 	});
 	
 	// select
-	$('.rte-wrap .rte-toolbar select').live('change', function(e){
+	dom.find('.rte-wrap .rte-toolbar select').live('change', function(e){
 		var bool 	= false;
 		var value 	= $(this).val();
 		
@@ -137,7 +141,7 @@ jQuery(document).ready(function($){
 	/*---------------------------------
 		Fancybox Lightbox
 	-----------------------------------*/
-	$('.gallery').each(function(i){
+	dom.find('.gallery').each(function(i){
 		$(this).find('a').attr('rel', 'gallery'+i)
 		.fancybox({
 			overlayOpacity: 0.2,
@@ -146,7 +150,7 @@ jQuery(document).ready(function($){
 	});
 	
 	// lightbox links
-	$('a.lightbox').fancybox({
+	dom.find('a.lightbox').fancybox({
 		overlayOpacity: 0.2,
 		overlayColor: '#000'
 	});
@@ -155,8 +159,8 @@ jQuery(document).ready(function($){
 		Tabs
 	-----------------------------------*/
 	// tab setup
-	$('.tab-content').addClass('clearfix').not(':first').hide();
-	$('ul.tabs').each(function(){
+	dom.find('.tab-content').addClass('clearfix').not(':first').hide();
+	dom.find('ul.tabs').each(function(){
 		var current = $(this).find('li.current');
 		if(current.length < 1) { $(this).find('li:first').addClass('current'); }
 		current = $(this).find('li.current a').attr('href');
@@ -164,7 +168,7 @@ jQuery(document).ready(function($){
 	});
 	
 	// tab click
-	$('ul.tabs a[href^="#"]').live('click', function(e){
+	dom.find('ul.tabs a[href^="#"]').live('click', function(e){
 		e.preventDefault();
 		var tabs = $(this).parents('ul.tabs').find('li');
 		var tab_next = $(this).attr('href');
@@ -181,18 +185,18 @@ jQuery(document).ready(function($){
     	var wantedTag = window.location.hash;
     	if (wantedTag != "")
     	{
-        	var allTabs = $("ul.tabs a[href^=" + wantedTag + "]").parents('ul.tabs').find('li');
+        	var allTabs = dom.find("ul.tabs a[href^=" + wantedTag + "]").parents('ul.tabs').find('li');
         	var defaultTab = allTabs.filter('.current').find('a').attr('href');
-        	$(defaultTab).hide();
+        	dom.find(defaultTab).hide();
         	allTabs.removeClass('current');
-        	$("ul.tabs a[href^=" + wantedTag + "]").parent().addClass('current');
-        	$("#" + wantedTag.replace('#','')).show();
+        	dom.find("ul.tabs a[href^=" + wantedTag + "]").parent().addClass('current');
+        	dom.find("#" + wantedTag.replace('#','')).show();
     	}
 	
 	/*---------------------------------
 		Image Caption
 	-----------------------------------*/
-	$('img.caption').each(function(){
+	dom.find('img.caption').each(function(){
 		$(this).wrap('<div class="caption">');
 		$(this).parents('div.caption')
 			.attr('class', 'caption '+$(this).attr('class'));
@@ -205,7 +209,7 @@ jQuery(document).ready(function($){
 	/*---------------------------------
 		Notice
 	-----------------------------------*/
-	$('.notice a.close').live('click', function(e){
+	dom.find('.notice a.close').live('click', function(e){
 		e.preventDefault();
 		var notice = $(this).parents('.notice');
 		$(this).hide();
@@ -217,7 +221,7 @@ jQuery(document).ready(function($){
 	-----------------------------------*/	
 	
 	// Standard tooltip
-	$('.tooltip, .tooltip-top, .tooltip-bottom, .tooltip-right, .tooltip-left').each(function(){
+	dom.find('.tooltip, .tooltip-top, .tooltip-bottom, .tooltip-right, .tooltip-left').each(function(){
 		// variables 
 		var tpos = 'top';
 		var content = $(this).attr('title');
@@ -248,13 +252,13 @@ jQuery(document).ready(function($){
 	-----------------------------------*/
 	// init
 	var aAsc = [];
-	$('table.sortable').each(function(){
+	dom.find('table.sortable').each(function(){
 		$(this).find('thead th').each(function(index){$(this).attr('rel', index);});
 		$(this).find('th,td').each(function(){$(this).attr('value', $(this).text());});
 	});
 
 	// table click
-	$('table.sortable thead th').live('click', function(e){
+	dom.find('table.sortable thead th').live('click', function(e){
 		// update arrow icon
 		$(this).parents('table.sortable').find('span.arrow').remove();
 		$(this).append('<span class="arrow"></span>');
@@ -279,7 +283,7 @@ jQuery(document).ready(function($){
 	/*---------------------------------
 		Icons
 	-----------------------------------*/
-	$('.icon').each(function(){
+	dom.find('.icon').each(function(){
 		$(this).html('<span aria-hidden="true">'+$(this).attr('data-icon')+'</span>')
 		.css('display', 'inline-block');
 	});
@@ -287,21 +291,21 @@ jQuery(document).ready(function($){
 	/*---------------------------------
 		CSS Helpers
 	-----------------------------------*/
-	if($.browser.msie){ $('body').addClass('msie'); }
-	$('input[type=checkbox]').addClass('checkbox');
-	$('input[type=radio]').addClass('radio');
-	$('input[type=file]').addClass('file');
-	$('[disabled=disabled]').addClass('disabled');
-	$('table').find('tr:even').addClass('alt');
-	$('table').find('tr:first-child').addClass('first');
-	$('table').find('tr:last-child').addClass('last');
-	$('ul').find('li:first-child').addClass('first');
-	$('ul').find('li:last-child').addClass('last');
-	$('hr').before('<div class="clear">&nbsp;</div>');
-	$('[class*="col_"]').addClass('column');
-	$('pre').addClass('prettyprint');prettyPrint();
+	if($.browser.msie){ dom.find('body').addClass('msie'); }
+	dom.find('input[type=checkbox]').addClass('checkbox');
+	dom.find('input[type=radio]').addClass('radio');
+	dom.find('input[type=file]').addClass('file');
+	dom.find('[disabled=disabled]').addClass('disabled');
+	dom.find('table').find('tr:even').addClass('alt');
+	dom.find('table').find('tr:first-child').addClass('first');
+	dom.find('table').find('tr:last-child').addClass('last');
+	dom.find('ul').find('li:first-child').addClass('first');
+	dom.find('ul').find('li:last-child').addClass('last');
+	dom.find('hr').before('<div class="clear">&nbsp;</div>');
+	dom.find('[class*="col_"]').addClass('column');
+	dom.find('pre').addClass('prettyprint');prettyPrint();
 	
-});
+}
 
 /*
 * Placeholder plugin for jQuery
